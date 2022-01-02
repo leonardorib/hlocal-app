@@ -10,11 +10,11 @@ ReactDOM.render(
 	<React.Fragment>
 		<CssBaseline />
 		<BrowserRouter>
-			<GlobalProvider>
-				<SnackbarProvider maxSnack={3}>
+			<SnackbarProvider maxSnack={3}>
+				<GlobalProvider>
 					<App />
-				</SnackbarProvider>
-			</GlobalProvider>
+				</GlobalProvider>
+			</SnackbarProvider>
 		</BrowserRouter>
 	</React.Fragment>,
 	document.getElementById("root")

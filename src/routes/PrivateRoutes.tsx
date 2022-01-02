@@ -1,4 +1,5 @@
 import { Navigate, Outlet } from "react-router";
+import { DashboardLayout } from "../components";
 
 interface IProps {
 	isAuthenticated: boolean;
@@ -6,5 +7,11 @@ interface IProps {
 
 export const PrivateRoutes: React.FC<IProps> = (props) => {
 	const { isAuthenticated } = props;
-	return isAuthenticated ? <Outlet /> : <Navigate to="/signIn" />;
+	return isAuthenticated ? (
+		<DashboardLayout>
+			<Outlet />
+		</DashboardLayout>
+	) : (
+		<Navigate to="/signIn" />
+	);
 };

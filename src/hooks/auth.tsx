@@ -3,6 +3,7 @@ import jwtDecode from "jwt-decode";
 import { AxiosResponse } from "axios";
 import { api, IUser, ILogin } from "../services/api";
 import { StorageService } from "../services/storage";
+import { useSnackbar } from "notistack";
 
 interface AuthContextData {
 	user: IUser | null;
@@ -28,6 +29,8 @@ export const AuthProvider: React.FC = ({ children }) => {
 		token: null,
 	});
 
+	const { enqueueSnackbar } = useSnackbar();
+
 	const updateLocalUser = async (user: IUser) => {
 		storageService.setUser(user);
 		setAuthState({ ...authState, user });
@@ -45,13 +48,14 @@ export const AuthProvider: React.FC = ({ children }) => {
 		if (onSuccess) onSuccess();
 	};
 
-	const logout = async () => {
+	const logout = () => {
 		setAuthState({
 			user: null,
 			token: null,
 		});
 		storageService.removeToken();
 		storageService.removeUser();
+		enqueueSnackbar("Volte sempre!", { variant: "info" });
 	};
 
 	const isTokenExpired = (token: string): boolean => {
