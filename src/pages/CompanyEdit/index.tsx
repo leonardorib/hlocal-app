@@ -27,7 +27,6 @@ export const CompanyEdit: React.FC = () => {
 		handleSubmit,
 		formState: { errors },
 		setValue,
-		getValues,
 	} = useForm<IFormData>({
 		resolver: yupResolver<any>(companySchema),
 	});

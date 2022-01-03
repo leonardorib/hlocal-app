@@ -31,7 +31,6 @@ export const ResponsiblesCreateList: React.FC<IProps> = (props) => {
 	const theme = useTheme();
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 	const [isCreateOpen, setIsCreateOpen] = React.useState(false);
-	const [isDetailsOpen, setIsDetailsOpen] = React.useState(false);
 	const [selectedResponsible, setSelectedResponsible] =
 		React.useState<ICreateResponsible | null>(null);
 

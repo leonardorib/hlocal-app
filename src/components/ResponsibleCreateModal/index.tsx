@@ -8,11 +8,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import { useAddress } from "../../hooks/useAddress";
 import { ICreateResponsible } from "../../services/api";
 import { AddressInput } from "../AddressInput";
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createResponsibleSchema } from "../../schemas/responsible";
@@ -38,7 +36,6 @@ export const ResponsibleCreateModal: React.FC<IProps> = (props) => {
 	const {
 		register,
 		handleSubmit,
-		getValues,
 		formState: { errors },
 	} = useForm<IResponsibleForm>({
 		resolver: yupResolver(createResponsibleSchema),
