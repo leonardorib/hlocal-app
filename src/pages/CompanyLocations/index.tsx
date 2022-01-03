@@ -28,7 +28,7 @@ export const CompanyLocations: React.FC = () => {
 	const navigate = useNavigate();
 	const { enqueueSnackbar } = useSnackbar();
 	const { id } = useParams();
-	const [companyName, setCompanyName] = React.useState("");
+
 	const fetchLocations = (page: number) => {
 		return api.locations.getAllByCompany({ companyId: id!, page });
 	};
@@ -57,6 +57,7 @@ export const CompanyLocations: React.FC = () => {
 		}
 	};
 
+	const [companyName, setCompanyName] = React.useState("");
 	const [isFetchCompanyLoading, setIsFetchCompanyLoading] =
 		React.useState(false);
 	const fetchCompany = async () => {
@@ -89,7 +90,8 @@ export const CompanyLocations: React.FC = () => {
 				</Typography>
 				<Button
 					onClick={() => {
-						navigate("/dashboard/companies/create");
+						if (!id) return;
+						navigate(`/dashboard/companies/${id}/locations/create`);
 					}}
 					sx={{ mb: 2 }}
 				>

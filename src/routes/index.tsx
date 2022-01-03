@@ -8,6 +8,7 @@ import {
 	CompanyCreate,
 	CompanyEdit,
 	CompanyLocations,
+	CompanyLocationCreate,
 } from "../pages";
 import { PrivateRoutes } from "./PrivateRoutes";
 import { useAuth } from "../hooks/useAuth";
@@ -47,6 +48,10 @@ export const App: React.FC = () => {
 				<Route
 					path="/dashboard/companies/:id/locations"
 					element={<CompanyLocations />}
+				/>
+				<Route
+					path="/dashboard/companies/:id/locations/create"
+					element={<CompanyLocationCreate />}
 				/>
 			</Route>
 

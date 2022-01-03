@@ -5,3 +5,4 @@ export { SignUp } from "./SignUp";
 export { CompanyCreate } from "./CompanyCreate";
 export { CompanyEdit } from "./CompanyEdit";
 export { CompanyLocations } from "./CompanyLocations";
+export { CompanyLocationCreate } from "./CompanyLocationCreate";

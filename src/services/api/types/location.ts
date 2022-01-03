@@ -15,8 +15,7 @@ export interface ILocation {
 export interface ICreateLocation {
 	companyId: string;
 	name: string;
-	addressCep: string;
-	addressNumber: number;
+	address: IAddress;
 	responsibles: ICreateResponsible[];
 }
 
