@@ -8,7 +8,11 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import { Link as RouterLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Button } from "@mui/material";
@@ -81,6 +85,19 @@ export const DashboardLayout: React.FC = (props) => {
 							<ChevronLeftIcon />
 						</IconButton>
 					</Toolbar>
+					<Divider />
+					<List>
+						<ListItem
+							button
+							component={RouterLink}
+							to="/home"
+							onClick={() => {
+								setOpen(false);
+							}}
+						>
+							<ListItemText primary="Home" />
+						</ListItem>
+					</List>
 				</MuiDrawer>
 				<Box
 					component="main"
