@@ -141,7 +141,10 @@ export const CompanyLocationCreate: React.FC = () => {
 								helperText={errors.name?.message || undefined}
 							/>
 						</Grid>
-						<Typography sx={{ mt: 2 }}>Endereço</Typography>
+						<Grid item xs={12} sx={{ mt: 2 }}>
+							<Typography fontWeight={700}>Endereço</Typography>
+						</Grid>
+
 						<Grid item xs={12}>
 							<TextField
 								{...register("streetNumber")}
