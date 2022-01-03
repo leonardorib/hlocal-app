@@ -24,11 +24,36 @@ import { cnpj } from "cpf-cnpj-validator";
 
 import { useNavigate } from "react-router-dom";
 
+import { useSnackbar } from "notistack";
+
 export const Home: React.FC = () => {
 	const navigate = useNavigate();
+	const { enqueueSnackbar } = useSnackbar();
 
-	const { items, page, increasePage, decreasePage, hasNextPage, totalPages } =
-		usePaginatedFetching(api.companies.getAllByCurrentUser);
+	const {
+		items,
+		page,
+		increasePage,
+		decreasePage,
+		isLoading,
+		totalPages,
+		refresh,
+	} = usePaginatedFetching(api.companies.getAllByCurrentUser);
+	const [isDeleteLoading, setIsDeleteLoading] = React.useState(false);
+
+	const deleteCompany = async (id: string) => {
+		if (isDeleteLoading || isLoading) return;
+		setIsDeleteLoading(true);
+		try {
+			await api.companies.delete(id);
+			enqueueSnackbar("Empresa deletada!", { variant: "success" });
+			refresh();
+		} catch (e) {
+			enqueueSnackbar("Erro. Tente novamente", { variant: "error" });
+		} finally {
+			setIsDeleteLoading(false);
+		}
+	};
 	return (
 		<Container maxWidth="md">
 			<Box sx={{ my: 4 }}>
@@ -98,7 +123,11 @@ export const Home: React.FC = () => {
 												</IconButton>
 											</Tooltip>
 											<Tooltip title="Deletar">
-												<IconButton onClick={() => {}}>
+												<IconButton
+													onClick={() => {
+														deleteCompany(row.id);
+													}}
+												>
 													<DeleteIcon />
 												</IconButton>
 											</Tooltip>

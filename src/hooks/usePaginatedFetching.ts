@@ -27,7 +27,12 @@ export const usePaginatedFetching = <T>(
 		setTotalPages(1);
 		setHasNextPage(false);
 		setItems([]);
-		setPage(0);
+		setPage((current) => {
+			if (current === 0) {
+				updateItems();
+			}
+			return 0;
+		});
 	};
 
 	const updateItems = async () => {
@@ -58,6 +63,7 @@ export const usePaginatedFetching = <T>(
 	return {
 		items,
 		page,
+		isLoading,
 		hasNextPage,
 		totalPages,
 		refresh,
