@@ -16,7 +16,7 @@ export const App: React.FC = () => {
 		<Routes>
 			<Route
 				path="/signIn"
-				element={!!user ? <Navigate to="/createCompany" /> : <SignIn />}
+				element={!!user ? <Navigate to="/home" /> : <SignIn />}
 			/>
 			<Route
 				path="/"
@@ -27,7 +27,7 @@ export const App: React.FC = () => {
 			</Route>
 			<Route
 				path="/signUp"
-				element={!!user ? <Navigate to="/createCompany" /> : <SignUp />}
+				element={!!user ? <Navigate to="/home" /> : <SignUp />}
 			/>
 			<Route path="*" element={<NotFound />} />
 		</Routes>
