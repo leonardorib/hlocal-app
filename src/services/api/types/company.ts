@@ -1,4 +1,4 @@
-import { IResponsible } from "./responsible";
+import { IResponsible, ICreateResponsible } from "./responsible";
 import { IUser } from "./user";
 
 export interface ICompany {
@@ -16,7 +16,7 @@ export interface ICreateCompany {
 	name: string;
 	cnpj: string;
 	description: string;
-	responsibles: IResponsible[];
+	responsibles: ICreateResponsible[];
 }
 
 export interface IUpdateCompany {

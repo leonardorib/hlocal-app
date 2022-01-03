@@ -1,11 +1,11 @@
 import { ICompany } from "./company";
-import { IResponsible } from "./responsible";
+import { IResponsible, ICreateResponsible } from "./responsible";
+import { IAddress } from "./address";
 
 export interface ILocation {
 	id: string;
 	name: string;
-	addressFormatted: string;
-	addressCep: string;
+	address: IAddress;
 
 	responsibles: IResponsible[];
 
@@ -17,7 +17,7 @@ export interface ICreateLocation {
 	name: string;
 	addressCep: string;
 	addressNumber: number;
-	responsibles: IResponsible[];
+	responsibles: ICreateResponsible[];
 }
 
 export interface IUpdateLocation {

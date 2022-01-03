@@ -12,7 +12,7 @@ import Grid from "@mui/material/Grid";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Button } from "@mui/material";
-import { useAuth } from "../../hooks/auth";
+import { useAuth } from "../../hooks/useAuth";
 
 const mdTheme = createTheme();
 
@@ -96,9 +96,7 @@ export const DashboardLayout: React.FC = (props) => {
 				>
 					<Toolbar />
 					<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-						<Grid container spacing={3}>
-							{children}
-						</Grid>
+						{children}
 					</Container>
 				</Box>
 			</Box>

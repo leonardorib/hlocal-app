@@ -1,16 +1,16 @@
 import { ICompany } from "./company";
 import { ILocation } from "./location";
+import { IAddress } from "./address";
 
-export interface IResponsible {
+export interface ICreateResponsible {
 	id?: string;
 	name: string;
 	phone: string;
-
-	addressFormatted: string;
-	addressCep: string;
-
+	address: IAddress;
 	isMainResponsible: boolean;
+}
 
+export interface IResponsible extends ICreateResponsible {
 	company?: ICompany | null;
 	location?: ILocation | null;
 
