@@ -7,6 +7,7 @@ import {
 	SignUp,
 	CompanyCreate,
 	CompanyEdit,
+	CompanyLocations,
 } from "../pages";
 import { PrivateRoutes } from "./PrivateRoutes";
 import { useAuth } from "../hooks/useAuth";
@@ -42,6 +43,10 @@ export const App: React.FC = () => {
 				<Route
 					path="/dashboard/companies/edit/:id"
 					element={<CompanyEdit />}
+				/>
+				<Route
+					path="/dashboard/companies/:id/locations"
+					element={<CompanyLocations />}
 				/>
 			</Route>
 

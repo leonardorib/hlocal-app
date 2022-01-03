@@ -19,18 +19,19 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import LocationIcon from "@mui/icons-material/LocationOn";
 
-import { cnpj } from "cpf-cnpj-validator";
-
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useSnackbar } from "notistack";
 
-export const Home: React.FC = () => {
+export const CompanyLocations: React.FC = () => {
 	const navigate = useNavigate();
 	const { enqueueSnackbar } = useSnackbar();
-
+	const { id } = useParams();
+	const [companyName, setCompanyName] = React.useState("");
+	const fetchLocations = (page: number) => {
+		return api.locations.getAllByCompany({ companyId: id!, page });
+	};
 	const {
 		items,
 		page,
@@ -39,15 +40,15 @@ export const Home: React.FC = () => {
 		isLoading,
 		totalPages,
 		refresh,
-	} = usePaginatedFetching(api.companies.getAllByCurrentUser);
-	const [isDeleteLoading, setIsDeleteLoading] = React.useState(false);
+	} = usePaginatedFetching(fetchLocations);
 
-	const deleteCompany = async (id: string) => {
+	const [isDeleteLoading, setIsDeleteLoading] = React.useState(false);
+	const deleteLocation = async (id: string) => {
 		if (isDeleteLoading || isLoading) return;
 		setIsDeleteLoading(true);
 		try {
-			await api.companies.delete(id);
-			enqueueSnackbar("Empresa deletada!", { variant: "success" });
+			await api.locations.delete(id);
+			enqueueSnackbar("Local deletado!", { variant: "success" });
 			refresh();
 		} catch (e) {
 			enqueueSnackbar("Erro. Tente novamente", { variant: "error" });
@@ -55,11 +56,36 @@ export const Home: React.FC = () => {
 			setIsDeleteLoading(false);
 		}
 	};
+
+	const [isFetchCompanyLoading, setIsFetchCompanyLoading] =
+		React.useState(false);
+	const fetchCompany = async () => {
+		if (isFetchCompanyLoading || !id) return;
+		setIsFetchCompanyLoading(true);
+		try {
+			const company = await api.companies.getById(id);
+			setCompanyName(company.name);
+		} catch (e: any) {
+			const message =
+				e.message || "Erro ao carregar informações. Tente novamente";
+			navigate("/dashboard");
+			enqueueSnackbar(message, {
+				variant: "error",
+			});
+			console.error(e);
+		} finally {
+			setIsFetchCompanyLoading(false);
+		}
+	};
+
+	React.useEffect(() => {
+		fetchCompany();
+	}, []);
 	return (
 		<Container maxWidth="md">
 			<Box sx={{ my: 4 }}>
 				<Typography variant="h5" component="h1" gutterBottom>
-					Empresas gerenciadas por você
+					{`Locais da empresa ${companyName}`}
 				</Typography>
 				<Button
 					onClick={() => {
@@ -67,11 +93,11 @@ export const Home: React.FC = () => {
 					}}
 					sx={{ mb: 2 }}
 				>
-					Cadastrar empresa
+					Cadastrar Local
 				</Button>
 				{items.length === 0 ? (
 					<Typography>
-						Você ainda não cadastrou nenhuma empresa
+						Você ainda não cadastrou nenhum Local
 					</Typography>
 				) : (
 					<TableContainer
@@ -79,14 +105,12 @@ export const Home: React.FC = () => {
 						sx={{ overflowX: "auto" }}
 					>
 						<Table
-							aria-label="responsibles table"
+							aria-label="Tabela de Locais"
 							sx={{ minWidth: 300 }}
 						>
 							<TableHead>
 								<TableRow>
 									<TableCell>Nome</TableCell>
-									<TableCell>CNPJ</TableCell>
-									<TableCell>Locais</TableCell>
 
 									<TableCell align="center">
 										Editar / Deletar
@@ -108,30 +132,12 @@ export const Home: React.FC = () => {
 											{row.name}
 										</TableCell>
 
-										<TableCell component="th" scope="row">
-											{cnpj.format(row.cnpj)}
-										</TableCell>
-
-										<TableCell component="th" scope="row">
-											<Tooltip title="Ver locais">
-												<IconButton
-													onClick={() => {
-														navigate(
-															`companies/${row.id}/locations`
-														);
-													}}
-												>
-													<LocationIcon />
-												</IconButton>
-											</Tooltip>
-										</TableCell>
-
 										<TableCell align="center">
 											<Tooltip title="Editar">
 												<IconButton
 													onClick={() => {
 														navigate(
-															`companies/edit/${row.id}`
+															`companies/locations/edit/${row.id}`
 														);
 													}}
 												>
@@ -141,7 +147,7 @@ export const Home: React.FC = () => {
 											<Tooltip title="Deletar">
 												<IconButton
 													onClick={() => {
-														deleteCompany(row.id);
+														deleteLocation(row.id);
 													}}
 												>
 													<DeleteIcon />
