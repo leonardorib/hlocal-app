@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { companySchema } from "../../schemas/company";
-import { api, ICreateCompany } from "../../services/api";
+import { api, treatErrorMessage, ICreateCompany } from "../../services/api";
 import { useSnackbar } from "notistack";
 
 import { ResponsiblesCreateList } from "../../components";
@@ -82,7 +82,7 @@ export const CompanyEdit: React.FC = () => {
 			});
 			navigate("/dashboard");
 		} catch (e: any) {
-			const message = e.message || "Erro. Tente novamente";
+			const message = treatErrorMessage(e);
 			enqueueSnackbar(message, {
 				variant: "error",
 			});

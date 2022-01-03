@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createLocationSchema } from "../../schemas/location";
-import { api, ILocation } from "../../services/api";
+import { api, treatErrorMessage, ILocation } from "../../services/api";
 import { useSnackbar } from "notistack";
 
 import { ResponsiblesCreateList, AddressInput } from "../../components";
@@ -78,7 +78,7 @@ export const CompanyLocationEdit: React.FC = () => {
 			});
 			navigate(`/dashboard/companies/${location.company.id}/locations`);
 		} catch (error: any) {
-			const message = error.message || "Erro. Tente novamente";
+			const message = treatErrorMessage(error);
 			enqueueSnackbar(message, {
 				variant: "error",
 			});
@@ -144,6 +144,9 @@ export const CompanyLocationEdit: React.FC = () => {
 								id="name"
 								autoComplete="name"
 								label="Nome"
+								InputLabelProps={{
+									shrink: true,
+								}}
 								required
 								fullWidth
 								autoFocus
@@ -162,6 +165,9 @@ export const CompanyLocationEdit: React.FC = () => {
 								autoComplete="streetNumber"
 								label="Número"
 								sx={{ mb: 2 }}
+								InputLabelProps={{
+									shrink: true,
+								}}
 								required
 								fullWidth
 								error={!!errors.streetNumber?.message}

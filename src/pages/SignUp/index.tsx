@@ -15,7 +15,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signUpSchema } from "../../schemas/signUp";
-import { api } from "../../services/api";
+import { api, treatErrorMessage } from "../../services/api";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 
@@ -52,8 +52,12 @@ export const SignUp: React.FC = () => {
 				variant: "success",
 			});
 			navigate("/signIn");
-		} catch (error) {
-			enqueueSnackbar("Erro no cadastro. Tente novamente", {
+		} catch (error: any) {
+			const message = treatErrorMessage(
+				error,
+				"Erro no cadastro. Tente novamente"
+			);
+			enqueueSnackbar(message, {
 				variant: "error",
 			});
 			console.error(error);

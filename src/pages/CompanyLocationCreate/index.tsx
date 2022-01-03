@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createLocationSchema } from "../../schemas/location";
-import { api } from "../../services/api";
+import { api, treatErrorMessage } from "../../services/api";
 import { useSnackbar } from "notistack";
 
 import { ResponsiblesCreateList, AddressInput } from "../../components";
@@ -71,7 +71,7 @@ export const CompanyLocationCreate: React.FC = () => {
 			});
 			navigate(`/dashboard/companies/${companyId}/locations`);
 		} catch (error: any) {
-			const message = error.message || "Erro. Tente novamente";
+			const message = treatErrorMessage(error);
 			enqueueSnackbar(message, {
 				variant: "error",
 			});

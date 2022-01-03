@@ -16,6 +16,7 @@ import { signInSchema } from "../../schemas/signIn";
 import { useSnackbar } from "notistack";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { treatErrorMessage } from "../../services/api";
 
 const theme = createTheme();
 
@@ -46,8 +47,12 @@ export const SignIn: React.FC = () => {
 			enqueueSnackbar("Bem vindo!", {
 				variant: "success",
 			});
-		} catch (error) {
-			enqueueSnackbar("Erro no login. Tente novamente", {
+		} catch (error: any) {
+			const message = treatErrorMessage(
+				error,
+				"Erro no login. Tente novamente"
+			);
+			enqueueSnackbar(message, {
 				variant: "error",
 			});
 			console.error(error);

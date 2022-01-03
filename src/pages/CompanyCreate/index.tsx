@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { companySchema } from "../../schemas/company";
-import { api, ICreateCompany } from "../../services/api";
+import { api, treatErrorMessage, ICreateCompany } from "../../services/api";
 import { useSnackbar } from "notistack";
 
 import { ResponsiblesCreateList } from "../../components";
@@ -53,8 +53,10 @@ export const CompanyCreate: React.FC = () => {
 			});
 			navigate("/dashboard");
 		} catch (error: any) {
-			const message =
-				error.message || "Erro no cadastro. Tente novamente";
+			const message = treatErrorMessage(
+				error,
+				"Erro no cadastro. Tente novamente"
+			);
 			enqueueSnackbar(message, {
 				variant: "error",
 			});
