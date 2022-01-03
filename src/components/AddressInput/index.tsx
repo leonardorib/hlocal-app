@@ -16,15 +16,17 @@ interface ICepForm {
 interface IProps {
 	address: Omit<IAddress, "streetNumber">;
 	setAddress: (newAddress: Omit<IAddress, "streetNumber">) => void;
+	initialCep?: string;
 }
 
 export const AddressInput: React.FC<IProps> = (props) => {
-	const { address, setAddress } = props;
+	const { address, setAddress, initialCep } = props;
 	const {
 		handleSubmit: submitCepForm,
 		getValues: getCepFormValues,
 		formState: cepFormState,
 		control: cepControl,
+		setValue,
 	} = useForm<ICepForm>({
 		resolver: yupResolver(cepFormSchema),
 	});
@@ -44,6 +46,12 @@ export const AddressInput: React.FC<IProps> = (props) => {
 			setIsSearchLoading(false);
 		}
 	};
+
+	React.useEffect(() => {
+		if (initialCep) {
+			setValue("cep", initialCep);
+		}
+	}, [initialCep]);
 	return (
 		<Grid container spacing={2}>
 			<Grid item xs={12}>
@@ -63,6 +71,9 @@ export const AddressInput: React.FC<IProps> = (props) => {
 							fullWidth
 							label="CEP"
 							autoComplete="cep"
+							InputLabelProps={{
+								shrink: initialCep ? true : undefined,
+							}}
 							InputProps={{
 								endAdornment: (
 									<IconButton

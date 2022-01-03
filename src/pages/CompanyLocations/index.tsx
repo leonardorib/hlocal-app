@@ -139,7 +139,7 @@ export const CompanyLocations: React.FC = () => {
 												<IconButton
 													onClick={() => {
 														navigate(
-															`companies/locations/edit/${row.id}`
+															`/dashboard/companies/locations/edit/${row.id}`
 														);
 													}}
 												>
