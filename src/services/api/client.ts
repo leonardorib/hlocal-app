@@ -26,7 +26,7 @@ class ApiClient {
 		const API_URL =
 			constants.environment === "development"
 				? "http://localhost:4000"
-				: "http://localhost:4000";
+				: "https://api.hlocal.leonardoribeiro.com";
 
 		this.client = axios.create({
 			baseURL: API_URL,
