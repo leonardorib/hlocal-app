@@ -1,6 +1,13 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { Home, NotFound, SignIn, SignUp, CompanyCreate } from "../pages";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import {
+	Home,
+	NotFound,
+	SignIn,
+	SignUp,
+	CompanyCreate,
+	CompanyEdit,
+} from "../pages";
 import { PrivateRoutes } from "./PrivateRoutes";
 import { useAuth } from "../hooks/useAuth";
 import { PageLoading } from "../components";
@@ -15,20 +22,29 @@ export const App: React.FC = () => {
 	return (
 		<Routes>
 			<Route
-				path="/signIn"
-				element={!!user ? <Navigate to="/home" /> : <SignIn />}
-			/>
-			<Route
 				path="/"
+				element={!!user ? <Navigate to="/dashboard" /> : <Outlet />}
+			>
+				<Route index element={<SignIn />} />
+				<Route path="/signIn" element={<SignIn />} />
+				<Route path="/signUp" element={<SignUp />} />
+			</Route>
+
+			<Route
+				path="/dashboard"
 				element={<PrivateRoutes isAuthenticated={!!user} />}
 			>
-				<Route path="/createCompany" element={<CompanyCreate />} />
-				<Route path="/home" element={<Home />} />
+				<Route index element={<Home />} />
+				<Route
+					path="/dashboard/companies/create"
+					element={<CompanyCreate />}
+				/>
+				<Route
+					path="/dashboard/companies/edit/:id"
+					element={<CompanyEdit />}
+				/>
 			</Route>
-			<Route
-				path="/signUp"
-				element={!!user ? <Navigate to="/home" /> : <SignUp />}
-			/>
+
 			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);

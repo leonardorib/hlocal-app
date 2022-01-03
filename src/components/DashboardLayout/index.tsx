@@ -90,7 +90,7 @@ export const DashboardLayout: React.FC = (props) => {
 						<ListItem
 							button
 							component={RouterLink}
-							to="/home"
+							to="/dashboard"
 							onClick={() => {
 								setOpen(false);
 							}}

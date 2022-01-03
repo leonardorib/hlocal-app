@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { usePaginatedFetching } from "../../hooks/usePaginatedFetching";
+import { Pagination } from "../../components";
 import { api } from "../../services/api";
 
 import Table from "@mui/material/Table";
@@ -16,7 +17,7 @@ import Paper from "@mui/material/Paper";
 
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import DetailsIcon from "@mui/icons-material/Visibility";
+import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { cnpj } from "cpf-cnpj-validator";
@@ -36,7 +37,7 @@ export const Home: React.FC = () => {
 				</Typography>
 				<Button
 					onClick={() => {
-						navigate("/createCompany");
+						navigate("/dashboard/companies/create");
 					}}
 					sx={{ mb: 2 }}
 				>
@@ -61,7 +62,7 @@ export const Home: React.FC = () => {
 									<TableCell>CNPJ</TableCell>
 
 									<TableCell align="center">
-										Ver / Deletar
+										Editar / Deletar
 									</TableCell>
 								</TableRow>
 							</TableHead>
@@ -85,9 +86,15 @@ export const Home: React.FC = () => {
 										</TableCell>
 
 										<TableCell align="center">
-											<Tooltip title="Ver detalhes">
-												<IconButton onClick={() => {}}>
-													<DetailsIcon />
+											<Tooltip title="Editar">
+												<IconButton
+													onClick={() => {
+														navigate(
+															`companies/edit/${row.id}`
+														);
+													}}
+												>
+													<EditIcon />
 												</IconButton>
 											</Tooltip>
 											<Tooltip title="Deletar">
@@ -102,27 +109,12 @@ export const Home: React.FC = () => {
 						</Table>
 					</TableContainer>
 				)}
-				<Box
-					component="div"
-					sx={{
-						width: "100%",
-						display: "flex",
-						justifyContent: "center",
-						mt: 2,
-						mb: 2,
-					}}
-				>
-					<Button
-						sx={{ mr: 4 }}
-						onClick={decreasePage}
-						disabled={page < 1}
-					>
-						Anterior
-					</Button>
-					<Button onClick={increasePage} disabled={!hasNextPage}>
-						Pŕoxima
-					</Button>
-				</Box>
+				<Pagination
+					currentPage={page}
+					totalPages={totalPages}
+					goToNextPage={increasePage}
+					goToPreviousPage={decreasePage}
+				/>
 			</Box>
 		</Container>
 	);
