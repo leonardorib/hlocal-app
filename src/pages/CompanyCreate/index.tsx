@@ -51,7 +51,7 @@ export const CompanyCreate: React.FC = () => {
 			enqueueSnackbar("Empresa cadastrada", {
 				variant: "success",
 			});
-			navigate("/home");
+			navigate("/dashboard");
 		} catch (error: any) {
 			const message =
 				error.message || "Erro no cadastro. Tente novamente";

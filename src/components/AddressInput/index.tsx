@@ -2,6 +2,7 @@ import React from "react";
 import { getAddressFromCep } from "../../services/cep";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import SearchIcon from "@mui/icons-material/Search";
 import Grid from "@mui/material/Grid";
 import { IAddress } from "../../types";
@@ -76,19 +77,24 @@ export const AddressInput: React.FC<IProps> = (props) => {
 							}}
 							InputProps={{
 								endAdornment: (
-									<IconButton
-										edge="start"
-										color="inherit"
-										aria-label="search address"
-										onClick={submitCepForm(fetchAddress)}
-									>
-										<SearchIcon />
-									</IconButton>
+									<Tooltip title="Buscar endereço">
+										<IconButton
+											edge="start"
+											color="inherit"
+											aria-label="search address"
+											onClick={submitCepForm(
+												fetchAddress
+											)}
+										>
+											<SearchIcon />
+										</IconButton>
+									</Tooltip>
 								),
 							}}
 							error={!!cepFormState.errors.cep?.message}
 							helperText={
-								cepFormState.errors.cep?.message || undefined
+								cepFormState.errors.cep?.message ||
+								"Clique na lupa para preencher o endereço depois de digitar o CEP"
 							}
 						/>
 					)}
