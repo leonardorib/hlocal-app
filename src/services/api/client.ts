@@ -23,10 +23,7 @@ class ApiClient {
 
 	constructor(storageService: StorageService) {
 		this.storage = storageService;
-		const API_URL =
-			constants.environment === "development"
-				? "http://localhost:4000"
-				: "https://api.hlocal.leonardoribeiro.com";
+		const API_URL = constants.apiUrl;
 
 		this.client = axios.create({
 			baseURL: API_URL,
