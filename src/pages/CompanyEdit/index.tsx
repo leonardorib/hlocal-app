@@ -107,7 +107,7 @@ export const CompanyEdit: React.FC = () => {
 				}}
 			>
 				<Typography component="h1" variant="h5">
-					Criar empresa
+					Editar empresa
 				</Typography>
 				<Box
 					component="form"
@@ -181,7 +181,7 @@ export const CompanyEdit: React.FC = () => {
 						size={24}
 					/>
 				) : (
-					"Cadastrar"
+					"Salvar"
 				)}
 			</Button>
 		</Container>
