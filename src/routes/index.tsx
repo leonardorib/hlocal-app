@@ -14,9 +14,15 @@ import {
 import { PrivateRoutes } from "./PrivateRoutes";
 import { useAuth } from "../hooks/useAuth";
 import { PageLoading } from "../components";
+import ReactGA from "react-ga4";
 
 export const App: React.FC = () => {
 	const { isInitialCheckLoading, user } = useAuth();
+
+	React.useEffect(() => {
+		ReactGA.initialize("G-XXEF8FF0JP");
+		ReactGA.send("pageview");
+	}, []);
 
 	if (isInitialCheckLoading) {
 		return <PageLoading />;
