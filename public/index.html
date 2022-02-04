@@ -22,9 +22,9 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
 		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<!-- <script
+		<script
 			async
-			src="https://www.googletagmanager.com/gtag/js?id=G-XXEF8FF0JP"
+			src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_GA_ID%"
 		></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
@@ -32,9 +32,11 @@
 				dataLayer.push(arguments);
 			}
 			gtag("js", new Date());
+			console.log("%REACT_APP_GA_ID%");
+			console.log("https://www.googletagmanager.com/gtag/js?id=%REACT_APP_GA_ID%");
 
-			gtag("config", "G-XXEF8FF0JP");
-		</script> -->
+			gtag("config", "%REACT_APP_GA_ID%");
+		</script>
 
 		<title>Hublocal App</title>
 		<!-- Fonts to support Material Design -->
